@@ -4,7 +4,6 @@ import './MapFormField.css'
 import MapWrapper from './MapWrapper'
 import Button from '@material-ui/core/Button'
 import { FieldProps } from 'formik'
-import GeoJSON from 'ol/format/GeoJSON'
 
 interface MapFieldProps extends FieldProps {
   featureType: 'Point' | 'Polygon' | 'Circle' | 'LineString'
@@ -38,10 +37,6 @@ function MapFormField({ field, form, ...props }: MapFieldProps) {
       </div>
     )
   } else {
-    const gj = new GeoJSON().writeFeaturesObject(drawnFeatures, {
-      dataProjection: 'EPSG:3857'
-    })
-
     return (
       <div>
         <Button
@@ -51,8 +46,6 @@ function MapFormField({ field, form, ...props }: MapFieldProps) {
         >
           Get {props.featureType}
         </Button>
-
-        <pre>{JSON.stringify(gj, null, 2)}</pre>
       </div>
     )
   }

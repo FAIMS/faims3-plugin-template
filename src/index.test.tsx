@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { MapFormField } from '.'
 
-describe('ExampleComponent', () => {
+describe('MapFormField', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(MapFormField).toBeTruthy()
   })
 })

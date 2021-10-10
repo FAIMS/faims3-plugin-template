@@ -11,9 +11,11 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
 import { Draw, Modify } from 'ol/interaction'
 import OSM from 'ol/source/OSM'
 import { Feature } from 'ol'
+import Button, { ButtonProps } from '@material-ui/core/Button'
+import GeoJSON from 'ol/format/GeoJSON'
 
 type FeaturesType = Feature<any>[] | undefined
-interface MapProps {
+interface MapProps extends ButtonProps {
   features: any
   featureType: 'Point' | 'Polygon' | 'Circle' | 'LineString'
   zoom: number
@@ -45,7 +47,8 @@ function MapWrapper(props: MapProps) {
   const [map, setMap] = useState<Map | undefined>()
   const [featuresLayer, setFeaturesLayer] =
     useState<VectorLayer<VectorSource<any>>>()
-  // const [drawInteraction, setDrawInteraction] = useState<Draw | undefined>()
+
+  const gjson = new GeoJSON()
 
   // pull refs
   const mapElement = useRef<HTMLDivElement>(null)
@@ -106,8 +109,13 @@ function MapWrapper(props: MapProps) {
       })
 
       // add features to map if we're passed any in
-      if (props.features && props.features.length > 0) {
-        source.addFeatures(props.features)
+      if (props.features && props.features.type) {
+        const parsedFeatures = gjson.readFeatures(props.features, {
+          dataProjection: 'EPSG:4326',
+          featureProjection: map.getView().getProjection()
+        })
+
+        source.addFeatures(parsedFeatures)
       }
 
       // setDrawInteraction(draw)
@@ -144,12 +152,27 @@ function MapWrapper(props: MapProps) {
   const submitAction = () => {
     if (featuresLayer) {
       const features = featuresLayer.getSource().getFeatures()
-      console.log(
-        'Returning Features: ',
-        featuresLayer.getSource().getFeatures()
-      )
-      props.callbackFn(features)
-      featuresLayer.getSource().clear()
+
+      if (map) {
+        const transFeatures: Array<Feature<any>> = []
+        console.log(features)
+        features.forEach((feature) => {
+          const geometry = feature
+            .getGeometry()
+            .clone()
+            .transform(map.getView().getProjection(), 'EPSG:4326')
+          const newFeature = feature.clone()
+          newFeature.setGeometry(geometry)
+          transFeatures.push(newFeature)
+        })
+        const geojFeatures = gjson.writeFeaturesObject(transFeatures, {
+          dataProjection: 'EPSG:4326'
+        })
+        console.log('GJ', geojFeatures)
+
+        props.callbackFn(geojFeatures)
+        featuresLayer.getSource().clear()
+      }
     }
   }
 
@@ -157,13 +180,15 @@ function MapWrapper(props: MapProps) {
   return (
     <div style={styles.mapInputWidget}>
       <div ref={mapElement} style={styles.mapContainer} />
-      <button
+      <Button
         type='button'
+        variant='outlined'
+        color='primary'
         style={styles.mapSubmitButton}
         onClick={submitAction}
       >
         Submit
-      </button>
+      </Button>
     </div>
   )
 }

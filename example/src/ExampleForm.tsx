@@ -10,7 +10,7 @@ const ExampleForm = () => {
 
   return (
       <Formik
-        initialValues={{ circle: {}, point: {}, polygon: {}, linestring: {} }}
+        initialValues={{ point: {}, polygon: {}, linestring: {} }}
         onSubmit={(values: any, actions: any) => {
             console.log(values)
             actions.setSubmitting(false);
@@ -21,11 +21,9 @@ const ExampleForm = () => {
             <div id="theform">
                   <h1>Test Form</h1>
           <Form>
-            <Field name="circle" zoom={10} featureType="Circle" component={MapFormField} />
-
             <Field name="point" center={center} featureType="Point" component={MapFormField} />
 
-            <Field name="polygon" featureType="Polygon" component={MapFormField} />
+            <Field name="polygon" zoom={10} featureType="Polygon" component={MapFormField} />
 
             <Field name="linestring" featureType="LineString" component={MapFormField} />
 

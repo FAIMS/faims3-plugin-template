@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save faims3-map-input
+npm install --save @faims-project/faims3-map-input
 ```
 
 ## Usage

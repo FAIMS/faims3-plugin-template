@@ -19,7 +19,7 @@ import GeoJSON from 'ol/format/GeoJSON'
 type FeaturesType = Feature<any>[] | undefined
 interface MapProps extends ButtonProps {
   features: any
-  featureType: 'Point' | 'Polygon' | 'Circle' | 'LineString'
+  featureType: 'Point' | 'Polygon' | 'LineString'
   zoom: number
   center: Array<number>
   callbackFn: (features: FeaturesType) => void
@@ -172,7 +172,8 @@ function MapWrapper(props: MapProps) {
           transFeatures.push(newFeature)
         })
         const geojFeatures = gjson.writeFeaturesObject(transFeatures, {
-          dataProjection: 'EPSG:4326'
+          dataProjection: 'EPSG:4326',
+          rightHanded: true
         })
 
         props.callbackFn(geojFeatures)

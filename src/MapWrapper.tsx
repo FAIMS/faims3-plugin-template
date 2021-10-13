@@ -11,6 +11,8 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
 import { Draw, Modify } from 'ol/interaction'
 import OSM from 'ol/source/OSM'
 import { Feature } from 'ol'
+import { transform } from 'ol/proj'
+
 import Button, { ButtonProps } from '@material-ui/core/Button'
 import GeoJSON from 'ol/format/GeoJSON'
 
@@ -60,7 +62,8 @@ function MapWrapper(props: MapProps) {
 
   const createMap = useCallback(
     (element: HTMLElement, props: MapProps): Map => {
-      // const featuresLayer = createBaseLayer(props.features);
+      const mapProjection = 'EPSG:3857'
+      const center = transform(props.center, 'EPSG:4326', mapProjection)
 
       const theMap = new Map({
         target: element,
@@ -69,14 +72,14 @@ function MapWrapper(props: MapProps) {
           // featuresLayer
         ],
         view: new View({
-          projection: 'EPSG:3857',
-          center: props.center,
+          projection: mapProjection,
+          center: center,
           zoom: props.zoom
         }),
         controls: []
       })
 
-      theMap.getView().setCenter(props.center)
+      theMap.getView().setCenter(center)
 
       return theMap
     },
@@ -155,12 +158,15 @@ function MapWrapper(props: MapProps) {
 
       if (map) {
         const transFeatures: Array<Feature<any>> = []
-        console.log(features)
         features.forEach((feature) => {
           const geometry = feature
             .getGeometry()
             .clone()
             .transform(map.getView().getProjection(), 'EPSG:4326')
+          console.log(
+            feature.getGeometry().flatCoordinates,
+            geometry.flatCoordinates
+          )
           const newFeature = feature.clone()
           newFeature.setGeometry(geometry)
           transFeatures.push(newFeature)
@@ -168,7 +174,6 @@ function MapWrapper(props: MapProps) {
         const geojFeatures = gjson.writeFeaturesObject(transFeatures, {
           dataProjection: 'EPSG:4326'
         })
-        console.log('GJ', geojFeatures)
 
         props.callbackFn(geojFeatures)
         featuresLayer.getSource().clear()

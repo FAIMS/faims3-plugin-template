@@ -7,14 +7,24 @@ import { FieldProps } from 'formik'
 
 interface MapFieldProps extends FieldProps {
   featureType: 'Point' | 'Polygon' | 'Circle' | 'LineString'
+  center?: Array<number>
+  zoom?: number
 }
 
 function MapFormField({ field, form, ...props }: MapFieldProps) {
   const [showMap, setShowMap] = useState(false)
   const [drawnFeatures, setDrawnFeatures] = useState<Array<Feature<any>>>([])
 
-  const zoom = 12
-  const center = [16817368.76, -4006732]
+  let zoom = 12
+  let center = [151.11224773567673, -33.773807355279104]
+
+  if (props.zoom) {
+    zoom = props.zoom
+  }
+
+  if (props.center) {
+    center = props.center
+  }
 
   const mapCallback = (theFeatures: any) => {
     setDrawnFeatures(theFeatures)

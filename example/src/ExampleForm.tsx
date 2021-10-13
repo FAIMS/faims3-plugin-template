@@ -6,6 +6,8 @@ import './ExampleForm.css'
 
 const ExampleForm = () => {
 
+  const center = [151.21409960967713,-33.85543752567224]
+
   return (
       <Formik
         initialValues={{ circle: {}, point: {}, polygon: {}, linestring: {} }}
@@ -19,9 +21,9 @@ const ExampleForm = () => {
             <div id="theform">
                   <h1>Test Form</h1>
           <Form>
-            <Field name="circle" featureType="Circle" component={MapFormField} />
+            <Field name="circle" zoom={10} featureType="Circle" component={MapFormField} />
 
-            <Field name="point" featureType="Point" component={MapFormField} />
+            <Field name="point" center={center} featureType="Point" component={MapFormField} />
 
             <Field name="polygon" featureType="Polygon" component={MapFormField} />
 

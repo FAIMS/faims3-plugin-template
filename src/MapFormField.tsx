@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import { FieldProps } from 'formik'
 
 interface MapFieldProps extends FieldProps {
-  featureType: 'Point' | 'Polygon' | 'Circle' | 'LineString'
+  featureType: 'Point' | 'Polygon' | 'LineString'
   center?: Array<number>
   zoom?: number
 }

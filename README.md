@@ -2,7 +2,7 @@
 
 > Map based input widget for FAIMS3
 
-[![NPM](https://img.shields.io/npm/v/faims3-map-input.svg)](https://www.npmjs.com/package/faims3-map-input) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@faims-project/faims3-map-input.svg)](https://www.npmjs.com/package/@faims-project/faims3-map-input) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
@@ -15,7 +15,7 @@ npm install --save @faims-project/faims3-map-input
 ```tsx
 import React, { Component } from 'react'
 import { Field, Form, Formik } from 'formik';
-import MapFormField from 'faims3-map-input'
+import MapFormField from '@faims-project/faims3-map-input'
 
 class Example extends Component {
   render() {
@@ -30,4 +30,4 @@ class Example extends Component {
 
 ## License
 
-MIT © [stevecassidy](https://github.com/stevecassidy)
+[Apache2](http://www.apache.org/licenses/LICENSE-2.0) © [stevecassidy](https://github.com/stevecassidy)

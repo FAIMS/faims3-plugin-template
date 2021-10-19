@@ -1,7 +1,8 @@
-
-import React from 'react';
+// @ts-ignore
+import React from 'react'; 
 import './App.css';
 import ExampleForm from './ExampleForm';
+
 
 function App() {
 

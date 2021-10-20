@@ -54,7 +54,7 @@ function MapFormField({ field, form, ...props }: MapFieldProps) {
   }
 
   if (showMap) {
-    window.scrollTo(0, 0)
+    //window.scrollTo(0, 0)
     return (
       <div>
         <MapWrapper

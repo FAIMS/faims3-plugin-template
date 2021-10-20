@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react';
 import { Field, Form, Formik } from 'formik';
 import {MapFormField} from 'faims3-map-input'

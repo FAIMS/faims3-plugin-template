@@ -22,7 +22,7 @@
     "lint": "gts lint",
     "clean": "gts clean",
     "fix": "gts fix",
-    "prepare": "yarn run build", 
+    "prepare": "yarn run build",
     "pretest": "yarn run build",
     "posttest": "yarn run lint"
   },
@@ -58,6 +58,7 @@
     "dist"
   ],
   "dependencies": {
+    "@capacitor/core": "2.4.7",
     "@material-ui/core": "^4.12.3",
     "@testing-library/dom": ">=5",
     "eslint-plugin-flowtype": "^6.1.1",

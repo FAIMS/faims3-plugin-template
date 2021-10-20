@@ -137,6 +137,16 @@ function MapWrapper(props: MapProps) {
         })
 
         source.addFeatures(parsedFeatures)
+
+        // set the view so that we can see the features
+        // but don't zoom too much
+        const extent = source.getExtent()
+        // don't fit if the extent is infinite because it crashes
+        if (!extent.includes(Infinity)) {
+          map
+            .getView()
+            .fit(extent, { padding: [20, 20, 20, 20], maxZoom: props.zoom })
+        }
       }
 
       // setDrawInteraction(draw)
@@ -181,10 +191,6 @@ function MapWrapper(props: MapProps) {
             .getGeometry()
             .clone()
             .transform(map.getView().getProjection(), 'EPSG:4326')
-          console.log(
-            feature.getGeometry().flatCoordinates,
-            geometry.flatCoordinates
-          )
           const newFeature = feature.clone()
           newFeature.setGeometry(geometry)
           transFeatures.push(newFeature)

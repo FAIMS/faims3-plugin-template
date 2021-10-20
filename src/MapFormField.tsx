@@ -25,6 +25,9 @@ import MapWrapper from './MapWrapper'
 import Button from '@material-ui/core/Button'
 import { FieldProps } from 'formik'
 
+import { Plugins } from '@capacitor/core'
+const { Geolocation } = Plugins
+
 interface MapFieldProps extends FieldProps {
   featureType: 'Point' | 'Polygon' | 'LineString'
   center?: Array<number>
@@ -35,15 +38,15 @@ function MapFormField({ field, form, ...props }: MapFieldProps) {
   const [showMap, setShowMap] = useState(false)
   const [drawnFeatures, setDrawnFeatures] = useState<Array<Feature<any>>>([])
 
-  let zoom = 12
-  let center = [151.11224773567673, -33.773807355279104]
 
-  if (props.zoom) {
-    zoom = props.zoom
+  // default props.center if not defined
+  if (!props.center) {
+    props.center = [0, 0]
   }
+  const [center, setCenter] = useState(props.center)
 
-  if (props.center) {
-    center = props.center
+  if (!props.zoom) {
+    props.zoom = 14
   }
 
   const mapCallback = (theFeatures: any) => {
@@ -53,14 +56,25 @@ function MapFormField({ field, form, ...props }: MapFieldProps) {
     form.setFieldValue(field.name, theFeatures)
   }
 
+  // get the current GPS location if we're about to show the map and 
+  // we have a default location
   if (showMap) {
+    if (center[0] === 0 && center[1] === 0) {
+      Geolocation.getCurrentPosition().then((result) => {
+        setCenter([result.coords.longitude, result.coords.latitude])
+      })
+    }
+  }
+
+  // only show the map if we have a center
+  if (showMap && center[0] !== 0 && center[1] !== 0) {
     //window.scrollTo(0, 0)
     return (
       <div>
         <MapWrapper
           featureType={props.featureType}
           features={drawnFeatures}
-          zoom={zoom}
+          zoom={props.zoom}
           center={center}
           callbackFn={mapCallback}
         />

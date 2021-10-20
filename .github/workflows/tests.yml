@@ -4,7 +4,7 @@ name: Tests
 on:
   pull_request:
     branches: [ main ]
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,6 +16,4 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: yarn install
       - name: Run tests
-        run: |
-          yarn run test:lint
-          yarn run test:unit
+        run: yarn run test:unit

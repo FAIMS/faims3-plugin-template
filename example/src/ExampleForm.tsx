@@ -22,12 +22,17 @@ const ExampleForm = () => {
             <div id="theform">
                   <h1>Test Form</h1>
           <Form>
+
+            <p>First button does not specify featureType so defaults to Point</p>
+            <Field name="point" center={center} component={MapFormField} />
+
+            <p></p>
             <Field name="point" center={center} featureType="Point" component={MapFormField} />
-
+            <p></p>
             <Field name="polygon" zoom={10} featureType="Polygon" component={MapFormField} />
-
+            <p></p>
             <Field name="linestring" featureType="LineString" component={MapFormField} />
-
+            <p></p>
             <Button variant='contained' color='primary' type="submit">Submit</Button>
           </Form>
 

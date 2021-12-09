@@ -19,16 +19,16 @@
  */
 
 import React, { useState } from 'react'
-import Feature from 'ol/Feature'
 import './MapFormField.css'
 import MapWrapper from './MapWrapper'
 import Button from '@material-ui/core/Button'
-import { FieldProps } from 'formik'
 
 import { Plugins } from '@capacitor/core'
 const { Geolocation } = Plugins
+import type { GeoJSONFeatureCollection } from 'ol/format/GeoJSON'
 
-interface MapFieldProps extends FieldProps {
+import { FieldProps } from 'formik'
+export interface MapFieldProps extends FieldProps {
   featureType: 'Point' | 'Polygon' | 'LineString'
   center?: Array<number>
   zoom?: number
@@ -36,8 +36,9 @@ interface MapFieldProps extends FieldProps {
 
 function MapFormField({ field, form, ...props }: MapFieldProps) {
   const [showMap, setShowMap] = useState(false)
-  const [drawnFeatures, setDrawnFeatures] = useState<Array<Feature<any>>>([])
-
+  const [drawnFeatures, setDrawnFeatures] = useState<GeoJSONFeatureCollection>(
+    {}
+  )
 
   // default props.center if not defined
   if (!props.center) {
@@ -49,20 +50,45 @@ function MapFormField({ field, form, ...props }: MapFieldProps) {
     props.zoom = 14
   }
 
-  const mapCallback = (theFeatures: any) => {
+  // default to point if not specified
+  if (!props.featureType) {
+    props.featureType = 'Point'
+  }
+
+  const mapCallback = (theFeatures: GeoJSONFeatureCollection) => {
     setDrawnFeatures(theFeatures)
     setShowMap(false)
 
     form.setFieldValue(field.name, theFeatures)
   }
 
-  // get the current GPS location if we're about to show the map and 
+  // get the current GPS location if we're about to show the map and
   // we have a default location
   if (showMap) {
     if (center[0] === 0 && center[1] === 0) {
       Geolocation.getCurrentPosition().then((result) => {
         setCenter([result.coords.longitude, result.coords.latitude])
       })
+    }
+  }
+
+  let valueText = ''
+  if (drawnFeatures.features) {
+    const geom = drawnFeatures.features[0].geometry
+    switch (geom.type) {
+      case 'Point':
+        valueText =
+          'Point: ' +
+          geom.coordinates[0].toFixed(2).toString() +
+          ', ' +
+          geom.coordinates[1].toFixed(2).toString()
+        break
+      case 'Polygon':
+        valueText = 'Polygon: ' + (geom.coordinates[0].length - 1) + ' points'
+        break
+      case 'LineString':
+        valueText = 'Line String: ' + geom.coordinates.length + ' points'
+        break
     }
   }
 
@@ -88,8 +114,9 @@ function MapFormField({ field, form, ...props }: MapFieldProps) {
           className='map-button'
           onClick={() => setShowMap(true)}
         >
-          Get {props.featureType}
+          Get {props.featureType} from Map
         </Button>
+        <div>{valueText}</div>
       </div>
     )
   }

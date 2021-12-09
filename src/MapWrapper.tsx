@@ -31,17 +31,20 @@ import OSM from 'ol/source/OSM'
 import { Feature } from 'ol'
 import { transform } from 'ol/proj'
 
-import Button, { ButtonProps } from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import GeoJSON from 'ol/format/GeoJSON'
+import { ButtonProps } from '@material-ui/core/Button'
 
-type FeaturesType = Feature<any>[] | undefined
-interface MapProps extends ButtonProps {
+export type FeaturesType = Feature<any>[] | undefined
+export interface MapProps extends ButtonProps {
   features: any
   featureType: 'Point' | 'Polygon' | 'LineString'
   zoom: number
   center: Array<number>
-  callbackFn: (features: FeaturesType) => void
+  callbackFn: (features: object) => void
 }
+
+import { GeoJSONFeatureCollection } from 'ol/format/GeoJSON'
 
 const styles = {
   mapInputWidget: {
@@ -196,10 +199,11 @@ function MapWrapper(props: MapProps) {
           newFeature.setGeometry(geometry)
           transFeatures.push(newFeature)
         })
-        const geojFeatures = gjson.writeFeaturesObject(transFeatures, {
-          dataProjection: 'EPSG:4326',
-          rightHanded: true
-        })
+        const geojFeatures: GeoJSONFeatureCollection =
+          gjson.writeFeaturesObject(transFeatures, {
+            dataProjection: 'EPSG:4326',
+            rightHanded: true
+          })
 
         props.callbackFn(geojFeatures)
         featuresLayer.getSource().clear()

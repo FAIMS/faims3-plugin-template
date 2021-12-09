@@ -58,7 +58,8 @@ const styles = {
     gridRow: 1
   },
   mapSubmitButton: {
-    gridRow: 2
+    gridRow: 2,
+    backgroundColor: '#fff'
   }
 } as const
 

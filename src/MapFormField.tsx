@@ -34,7 +34,11 @@ export interface MapFieldProps extends FieldProps {
   zoom?: number
 }
 
-function MapFormField({ field, form, ...props }: MapFieldProps) {
+export function MapFormField({
+  field,
+  form,
+  ...props
+}: MapFieldProps): JSX.Element {
   const [showMap, setShowMap] = useState(false)
   const [drawnFeatures, setDrawnFeatures] = useState<GeoJSONFeatureCollection>(
     {}
@@ -122,4 +126,3 @@ function MapFormField({ field, form, ...props }: MapFieldProps) {
   }
 }
 
-export { MapFormField }

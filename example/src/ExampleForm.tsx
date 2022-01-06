@@ -23,14 +23,14 @@ const ExampleForm = () => {
                   <h1>Test Form</h1>
           <Form>
 
-            <p>First button does not specify featureType so defaults to Point</p>
-            <Field name="point" center={center} component={MapFormField} />
+            <p>First button does not specify featureType so defaults to Point, center is defined</p>
+            <Field label="This label was set explicitly" name="point" center={center} component={MapFormField} />
 
-            <p></p>
+            <p>Specify center position and featureType: Point</p>
             <Field name="point" center={center} featureType="Point" component={MapFormField} />
-            <p></p>
+            <p>Polygon with no specified center, uses current location, zoom set to 10</p>
             <Field name="polygon" zoom={10} featureType="Polygon" component={MapFormField} />
-            <p></p>
+            <p>Linestring with no center, uses current location</p>
             <Field name="linestring" featureType="LineString" component={MapFormField} />
             <p></p>
             <Button variant='contained' color='primary' type="submit">Submit</Button>

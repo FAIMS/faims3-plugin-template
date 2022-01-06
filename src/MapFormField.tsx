@@ -32,6 +32,7 @@ export interface MapFieldProps extends FieldProps {
   featureType: 'Point' | 'Polygon' | 'LineString'
   center?: Array<number>
   zoom?: number
+  label?: string
 }
 
 export function MapFormField({
@@ -118,7 +119,7 @@ export function MapFormField({
           className='map-button'
           onClick={() => setShowMap(true)}
         >
-          Get {props.featureType} from Map
+          {props.label ? props.label : 'Get ' + props.featureType + ' from Map'}
         </Button>
         <div>{valueText}</div>
       </div>

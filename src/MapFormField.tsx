@@ -41,9 +41,15 @@ export function MapFormField({
   ...props
 }: MapFieldProps): JSX.Element {
   const [showMap, setShowMap] = useState(false)
-  const [drawnFeatures, setDrawnFeatures] = useState<GeoJSONFeatureCollection>(
-    {}
-  )
+
+  // get previous form state if available
+  let initialFeatures = {}
+  if (form.values[field.name]) {
+    initialFeatures = form.values[field.name]
+  }
+
+  const [drawnFeatures, setDrawnFeatures] =
+    useState<GeoJSONFeatureCollection>(initialFeatures)
 
   // default props.center if not defined
   if (!props.center) {
@@ -59,6 +65,8 @@ export function MapFormField({
   if (!props.featureType) {
     props.featureType = 'Point'
   }
+
+
 
   const mapCallback = (theFeatures: GeoJSONFeatureCollection) => {
     setDrawnFeatures(theFeatures)

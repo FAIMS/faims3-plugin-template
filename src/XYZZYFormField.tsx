@@ -19,19 +19,19 @@
  */
 
 import React, { useState } from 'react'
-import './PluginFormField.css'
+import './XYZZYFormField.css'
 import Input from '@material-ui/core/Input'
 
 import { FieldProps } from 'formik'
-export interface PluginFieldProps extends FieldProps {
+export interface XYZZYFieldProps extends FieldProps {
   label?: string
 }
 
-export function PluginFormField({
+export function XYZZYFormField({
   field,
   form,
   ...props
-}: PluginFieldProps): JSX.Element {
+}: XYZZYFieldProps): JSX.Element {
   // get previous form state if available
   let initialValue = ''
   if (form.values[field.name]) {

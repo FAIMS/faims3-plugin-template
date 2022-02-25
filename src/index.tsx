@@ -1,2 +1,2 @@
-export { PluginFormField } from './PluginFormField'
-export { PluginFieldUISpec, PluginFieldUISetting } from './PluginFormFieldSettings'
+export { XYZZYFormField } from './XYZZYFormField'
+export { XYZZYFieldUISpec, XYZZYFieldUISetting } from './XYZZYFormFieldSettings'

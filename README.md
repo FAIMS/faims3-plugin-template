@@ -1,8 +1,14 @@
-# faims3-map-input
+# faims3-xyzzy-input
 
-> Map based input widget for FAIMS3
+> Template project for new input widget plugins for FAIMS3
 
-[![NPM](https://img.shields.io/npm/v/@faims-project/faims3-map-input.svg)](https://www.npmjs.com/package/@faims-project/faims3-map-input) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@faims-project/faims3-xyzzy-input.svg)](https://www.npmjs.com/package/@faims-project/faims3-xyzzy-input) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+This repository contains a simple form field component structured as a plugin
+for FAIMS3. It is intended to be the basis for future plugins. 
+
+Replace 'XYZZY' or 'xyzzy' everywhere with the name of your plugin field. 
+
 
 ## Install
 
@@ -15,13 +21,13 @@ npm install --save @faims-project/faims3-map-input
 ```tsx
 import React, { Component } from 'react'
 import { Field, Form, Formik } from 'formik';
-import MapFormField from '@faims-project/faims3-map-input'
+import XYZZYFormField from '@faims-project/faims3-xyzzy-input'
 
 class Example extends Component {
   render() {
       return <Formik>
                 <Form>
-                  <Field name="circle" featureType="Circle" component={MapFormField} />
+                  <Field name="circle" featureType="Circle" component={XYZZYFormField} />
                 </Form>
              </Formik>
   }

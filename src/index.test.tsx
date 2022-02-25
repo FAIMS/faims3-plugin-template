@@ -1,7 +1,7 @@
-import { PluginFormField } from '.'
+import { XYZZYFormField } from '.'
 
-describe('PluginFormField', () => {
+describe('XYZZYFormField', () => {
   it('is truthy', () => {
-    expect(PluginFormField).toBeTruthy()
+    expect(XYZZYFormField).toBeTruthy()
   })
 })

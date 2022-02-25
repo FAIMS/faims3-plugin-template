@@ -4527,7 +4527,7 @@ express@^4.17.1:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-"faims3-plugin-template@link:..":
+"faims3-xyzzy-input@link:..":
   version "0.0.0"
   uid ""
 

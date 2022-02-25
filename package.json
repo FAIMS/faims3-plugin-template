@@ -1,10 +1,10 @@
 {
-  "name": "@faims-project/faims3-plugin-template",
+  "name": "@faims-project/faims3-xyzzy-input",
   "version": "1.0.5",
   "description": "Template for plugin input widget for FAIMS3",
   "author": "stevecassidy",
   "license": "MIT",
-  "repository": "FAIMS/faims3-plugin-template",
+  "repository": "FAIMS/faims3-xyzzy-input",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "module": "build/index.modern.js",

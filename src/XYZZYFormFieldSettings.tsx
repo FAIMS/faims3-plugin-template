@@ -21,9 +21,9 @@ interface ProjectUIModel {
   visible_types: string[]
 }
 
-export const PluginFieldUISpec = {
+export const XYZZYFieldUISpec = {
   'component-namespace': 'xxxxx-plugin', // this says what web component to use to render/acquire value from
-  'component-name': 'PluginFormField',
+  'component-name': 'XYZZYFormField',
   'type-returned': 'faims-core::String', // matches a type in the Project Model
   'component-parameters': {
     name: 'radio-group-field',
@@ -39,7 +39,7 @@ export const PluginFieldUISpec = {
   initialValue: '1'
 }
 
-export const PluginFieldUISetting = (defaultSetting: ProjectUIModel) => {
+export const XYZZYFieldUISetting = (defaultSetting: ProjectUIModel) => {
   const newuiSetting = Object.assign({}, defaultSetting)
 
   return newuiSetting

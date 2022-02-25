@@ -1,7 +1,7 @@
-import { MapFormField } from '.'
+import { PluginFormField } from '.'
 
-describe('MapFormField', () => {
+describe('PluginFormField', () => {
   it('is truthy', () => {
-    expect(MapFormField).toBeTruthy()
+    expect(PluginFormField).toBeTruthy()
   })
 })

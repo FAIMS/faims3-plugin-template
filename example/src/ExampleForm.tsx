@@ -1,17 +1,15 @@
 // @ts-ignore
 import React from 'react';
 import { Field, Form, Formik } from 'formik';
-import {MapFormField} from 'faims3-map-input'
+import {PluginFormField} from 'faims3-plugin-template'
 import Button from '@material-ui/core/Button'
 import './ExampleForm.css'
 
 const ExampleForm = () => {
 
-  const center = [151.21409960967713,-33.85543752567224]
-
   return (
       <Formik
-        initialValues={{ point: {}, polygon: {}, linestring: {} }}
+        initialValues={{ sample: '' }}
         onSubmit={(values: any, actions: any) => {
             console.log(values)
             actions.setSubmitting(false);
@@ -23,15 +21,8 @@ const ExampleForm = () => {
                   <h1>Test Form</h1>
           <Form>
 
-            <p>First button does not specify featureType so defaults to Point, center is defined</p>
-            <Field label="This label was set explicitly" name="point" center={center} component={MapFormField} />
-
-            <p>Specify center position and featureType: Point</p>
-            <Field name="point" center={center} featureType="Point" component={MapFormField} />
-            <p>Polygon with no specified center, uses current location, zoom set to 10</p>
-            <Field name="polygon" zoom={10} featureType="Polygon" component={MapFormField} />
-            <p>Linestring with no center, uses current location</p>
-            <Field name="linestring" featureType="LineString" component={MapFormField} />
+            <p>Sample form field</p>
+            <Field label="This label was set explicitly" name="sample" component={PluginFormField} />
             <p></p>
             <Button variant='contained' color='primary' type="submit">Submit</Button>
           </Form>

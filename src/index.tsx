@@ -1,2 +1,2 @@
-export { MapFormField } from './MapFormField'
-export { MapFieldUISpec, MapFieldUISetting } from './MapFormFieldSettings'
+export { PluginFormField } from './PluginFormField'
+export { PluginFieldUISpec, PluginFieldUISetting } from './PluginFormFieldSettings'
